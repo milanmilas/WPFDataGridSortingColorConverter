@@ -1,8 +1,50 @@
 ﻿<Window x:Class="GridSortingWithColorConverter.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        xmlns:gridSortingWithColorConverter="clr-namespace:GridSortingWithColorConverter"
         Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <gridSortingWithColorConverter:BrushColorConverter x:Key="ColorConverter" />
+        <CollectionViewSource x:Key="SortedPeople" Source="{Binding People}">
+            <CollectionViewSource.SortDescriptions>
+                <cm:SortDescription PropertyName="Name" />
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="SortedPeople2" Source="{Binding People2}">
+            <CollectionViewSource.SortDescriptions>
+                <cm:SortDescription PropertyName="Name" />
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <DataGrid ItemsSource="{Binding Source={StaticResource SortedPeople}}" SelectionUnit="CellOrRowHeader" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="NAME" IsReadOnly="False" SortMemberPath="Age">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock 
+                                Name="Name" 
+                                Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Background="{Binding Path=Age, Converter={StaticResource ColorConverter}}"
+                                />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="AGE" IsReadOnly="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Name="Age" Text="{Binding Path=Age, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Source={StaticResource SortedPeople2}}" SelectionUnit="CellOrRowHeader">
+        </DataGrid>
     </Grid>
 </Window>
