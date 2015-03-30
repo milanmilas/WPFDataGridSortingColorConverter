@@ -17,18 +17,18 @@ namespace GridSortingWithColorConverter
 			People = new ObservableCollection<Person>(
 				new List<Person>
 					{
-						new Person() {Age = 5, Name = "Dragan"},
+						new Person() {Age = 5, Name = "Dan"},
 						new Person() {Age = 25, Name = "Ana"},
-						new Person() {Age = 65, Name = "Milica"}
+						new Person() {Age = 65, Name = "Mike"}
 					}
 				);
 	
 			People2 = new ObservableCollection<Person>(
 				new List<Person>
 					{
-						new Person() {Age = 5, Name = "Dragan2"},
+						new Person() {Age = 5, Name = "Dan"},
 						new Person() {Age = 25, Name = "Ana2"},
-						new Person() {Age = 65, Name = "Milica2"}
+						new Person() {Age = 65, Name = "Mike"}
 					}
 				);
 		}
